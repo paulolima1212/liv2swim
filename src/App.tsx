@@ -4,6 +4,7 @@ import Footer from './components/Footer'
 import Hero from './components/Hero'
 import Navbar from './components/Navbar'
 import StudentForm from './components/StudentForm'
+import SwimmingCarousel from './components/SwimmingCarousel'
 import Testimonials from './components/Testimonials'
 
 function App() {
@@ -14,6 +15,7 @@ function App() {
         <Hero />
         <Features />
         <Testimonials />
+        <SwimmingCarousel />
         <CTASection />
         <StudentForm />
         <Footer />
