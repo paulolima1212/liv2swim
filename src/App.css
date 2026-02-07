@@ -1,0 +1,5 @@
+/* App-level overrides only; layout lives in index.css and components */
+
+#root {
+  min-height: 100vh;
+}

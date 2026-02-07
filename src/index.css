@@ -1,0 +1,93 @@
+@import "tailwindcss";
+
+@theme {
+  /* Paleta conceitual: água profunda + confiança */
+  --color-primary: #0d9488;
+  --color-primary-dark: #0f766e;
+  --color-primary-light: #2dd4bf;
+  --color-primary-muted: #5eead4;
+
+  --color-secondary: #0c4a6e;
+  --color-secondary-light: #0369a1;
+  --color-secondary-muted: #7dd3fc;
+
+  --color-background: #fafbfc;
+  --color-surface: #ffffff;
+  --color-surface-elevated: #ffffff;
+
+  --color-text-main: #0f172a;
+  --color-text-muted: #475569;
+  --color-text-subtle: #94a3b8;
+
+  --color-accent: #ea580c;
+  --color-accent-soft: #fed7aa;
+
+  --font-sans: "DM Sans", system-ui, sans-serif;
+  --font-heading: "Outfit", system-ui, sans-serif;
+
+  /* Container: largura máxima e padding consistente */
+  --container-max: 72rem;
+  --container-padding: 1.5rem;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-background text-text-main font-sans antialiased;
+    font-feature-settings: "ss01" 1, "ss02" 1;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-heading font-bold text-text-main;
+    letter-spacing: -0.02em;
+  }
+
+  ::selection {
+    @apply bg-primary/20 text-primary-dark;
+  }
+}
+
+@layer components {
+  .container {
+    width: 100%;
+    max-width: var(--container-max);
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: var(--container-padding);
+    padding-right: var(--container-padding);
+  }
+
+  .btn {
+    @apply inline-flex items-center justify-center gap-2 px-6 py-3 font-semibold rounded-full transition-all duration-300 border border-transparent focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary/50 cursor-pointer;
+  }
+
+  .btn-primary {
+    @apply bg-primary text-white hover:bg-primary-dark active:scale-[0.98] shadow-lg shadow-primary/25 hover:shadow-xl hover:shadow-primary/30 hover:-translate-y-0.5;
+  }
+
+  .btn-secondary {
+    @apply bg-secondary text-white hover:bg-secondary-light active:scale-[0.98] shadow-lg shadow-secondary/20 hover:-translate-y-0.5;
+  }
+
+  .btn-ghost {
+    @apply bg-transparent text-text-main border border-slate-200 hover:bg-slate-50 hover:border-slate-300;
+  }
+
+  .section-padding {
+    @apply py-24 md:py-32;
+  }
+
+  .heading-display {
+    @apply text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-heading font-bold tracking-tight;
+    letter-spacing: -0.03em;
+    line-height: 1.05;
+  }
+
+  .heading-section {
+    @apply text-3xl md:text-4xl lg:text-5xl font-heading font-bold tracking-tight;
+    letter-spacing: -0.02em;
+  }
+}
