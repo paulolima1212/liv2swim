@@ -3,6 +3,12 @@ import { ArrowRight, CheckCircle, HelpCircle } from 'lucide-react'
 import { useFormModal } from '../context/FormModalContext'
 import { useLanguage } from '../i18n/LanguageContext'
 
+function openTawkChat() {
+  if (typeof window !== 'undefined' && (window as unknown as { Tawk_API?: { maximize?: () => void } }).Tawk_API?.maximize) {
+    (window as unknown as { Tawk_API: { maximize: () => void } }).Tawk_API.maximize()
+  }
+}
+
 const CTASection = () => {
   const { t } = useLanguage()
   const { openForm } = useFormModal()
@@ -48,13 +54,14 @@ const CTASection = () => {
             {t.cta.buttonPrimary}
             <ArrowRight className='w-5 h-5' />
           </button>
-          <a
-            href='#'
+          <button
+            type='button'
+            onClick={openTawkChat}
             className='btn bg-white/10 border-2 border-white/20 text-white hover:bg-white/20 backdrop-blur-sm px-8 py-4 text-lg'
           >
             <HelpCircle className='w-5 h-5' />
             {t.cta.buttonSecondary}
-          </a>
+          </button>
         </motion.div>
 
         <motion.div
