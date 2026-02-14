@@ -51,6 +51,11 @@ export const translations = {
           description:
             'Passo a passo que constrói confiança e habilidade ao mesmo tempo.',
         },
+        {
+          title: 'Instrutores centrados nas pessoas',
+          description:
+            'Profissionais formados em técnica de natação e em construção de confiança na água.',
+        },
       ],
     },
     testimonials: {
@@ -110,9 +115,8 @@ export const translations = {
       namePlaceholder: 'Seu nome completo',
       phone: 'Telefone',
       phonePlaceholder: '(11) 99999-9999',
-      level: 'Nível',
-      levelPlaceholder: 'Selecione seu nível',
-      levels: ['Iniciante', 'Intermediário', 'Avançado'],
+      email: 'E-mail',
+      emailPlaceholder: 'seu@email.com',
       submit: 'Enviar',
       sending: 'Enviando...',
       success: 'Dados enviados! Entraremos em contato em breve.',
@@ -170,6 +174,11 @@ export const translations = {
           description:
             'A step-by-step approach that builds confidence and skill together.',
         },
+        {
+          title: 'Human-centred instructors',
+          description:
+            'Professionals trained in both swimming technique and confidence-building in the water.',
+        },
       ],
     },
     testimonials: {
@@ -200,7 +209,7 @@ export const translations = {
     cta: {
       title: 'Start with confidence',
       subtitle:
-        'Book an assessment trial session. No commitment — just a chance to see how we can help you or your child feel at ease in the water.',
+        'Book a trial assessment session. No commitment — just an opportunity to discover how we can help you or your child feel confident and comfortable in the water.',
       buttonPrimary: 'Book trial session',
       buttonSecondary: 'Ask a question',
       benefits: [
@@ -229,9 +238,8 @@ export const translations = {
       namePlaceholder: 'Your full name',
       phone: 'Phone',
       phonePlaceholder: '(555) 123-4567',
-      level: 'Level',
-      levelPlaceholder: 'Select your level',
-      levels: ['Beginner', 'Intermediate', 'Advanced'],
+      email: 'Email',
+      emailPlaceholder: 'you@email.com',
       submit: 'Submit',
       sending: 'Sending...',
       success: 'Submitted! We’ll get in touch soon.',

@@ -1,8 +1,8 @@
 import { motion } from 'framer-motion'
-import { Heart, Shield, Sparkles, Users } from 'lucide-react'
+import { Heart, Shield, Sparkles, UserCircle, Users } from 'lucide-react'
 import { useLanguage } from '../i18n/LanguageContext'
 
-const icons = [Shield, Users, Heart, Sparkles] as const
+const icons = [Shield, Users, Heart, Sparkles, UserCircle] as const
 const colorClasses: Record<string, string> = {
   primary: 'bg-primary text-white',
   secondary: 'bg-secondary text-white',
@@ -13,6 +13,7 @@ const colors: ('primary' | 'secondary' | 'accent')[] = [
   'secondary',
   'accent',
   'primary',
+  'secondary',
 ]
 
 const Features = () => {
@@ -51,7 +52,7 @@ const Features = () => {
           </p>
         </motion.div>
 
-        <div className='grid md:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8'>
+        <div className='grid md:grid-cols-2 lg:grid-cols-5 gap-6 lg:gap-8'>
           {items.map((feature, index) => {
             const Icon = icons[index]
             const color = colors[index]

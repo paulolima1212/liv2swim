@@ -1,6 +1,7 @@
-import { motion } from 'framer-motion'
-import { Loader2 } from 'lucide-react'
-import { useState, type FormEvent } from 'react'
+import { AnimatePresence, motion } from 'framer-motion'
+import { Loader2, X } from 'lucide-react'
+import { useEffect, useState, type FormEvent } from 'react'
+import { useFormModal } from '../context/FormModalContext'
 import { useLanguage } from '../i18n/LanguageContext'
 
 const FORM_SUBMIT_URL = import.meta.env.VITE_FORM_SUBMIT_URL as
@@ -10,7 +11,7 @@ const FORM_SUBMIT_URL = import.meta.env.VITE_FORM_SUBMIT_URL as
 export type StudentFormData = {
   nome: string
   telefone: string
-  nivel: string
+  email: string
 }
 
 async function submitForm(data: StudentFormData): Promise<void> {
@@ -31,15 +32,24 @@ async function submitForm(data: StudentFormData): Promise<void> {
   }
 }
 
-const StudentForm = () => {
-  const { t } = useLanguage()
+const StudentFormModal = () => {
+  const { t, locale } = useLanguage()
+  const { isFormOpen, closeForm } = useFormModal()
   const [nome, setNome] = useState('')
   const [telefone, setTelefone] = useState('')
-  const [nivel, setNivel] = useState('')
+  const [email, setEmail] = useState('')
   const [status, setStatus] = useState<
     'idle' | 'sending' | 'success' | 'error'
   >('idle')
   const [errorMessage, setErrorMessage] = useState<string | null>(null)
+
+  useEffect(() => {
+    if (isFormOpen) document.body.style.overflow = 'hidden'
+    else document.body.style.overflow = ''
+    return () => {
+      document.body.style.overflow = ''
+    }
+  }, [isFormOpen])
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault()
@@ -49,7 +59,7 @@ const StudentForm = () => {
     const payload: StudentFormData = {
       nome: nome.trim(),
       telefone: telefone.trim(),
-      nivel: nivel.trim(),
+      email: email.trim(),
     }
 
     try {
@@ -57,7 +67,8 @@ const StudentForm = () => {
       setStatus('success')
       setNome('')
       setTelefone('')
-      setNivel('')
+      setEmail('')
+      setTimeout(closeForm, 2000)
     } catch (err) {
       setStatus('error')
       setErrorMessage(
@@ -66,132 +77,143 @@ const StudentForm = () => {
     }
   }
 
+  const handleBackdropClick = (e: React.MouseEvent) => {
+    if (e.target === e.currentTarget) closeForm()
+  }
+
   const isSending = status === 'sending'
 
   return (
-    <section
-      id='form'
-      className='section-padding bg-background relative overflow-hidden'
-      aria-labelledby='form-heading'
-    >
-      <div className='container relative z-10 max-w-lg mx-auto'>
+    <AnimatePresence>
+      {isFormOpen && (
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className='text-center mb-12'
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.2 }}
+          className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-sm"
+          onClick={handleBackdropClick}
+          aria-modal="true"
+          role="dialog"
+          aria-labelledby="form-heading"
         >
-          <h2 id='form-heading' className='heading-section text-text-main mb-3'>
-            {t.form.title}
-          </h2>
-          <p className='text-text-muted text-lg'>{t.form.subtitle}</p>
-        </motion.div>
-
-        <motion.form
-          initial={{ opacity: 0, y: 16 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          onSubmit={handleSubmit}
-          className='bg-surface border border-slate-200 rounded-3xl p-8 shadow-lg shadow-slate-100/50'
-        >
-          <div className='space-y-6'>
-            <div>
-              <label
-                htmlFor='form-nome'
-                className='block text-sm font-semibold text-text-main mb-2'
+          <motion.div
+            initial={{ opacity: 0, scale: 0.95, y: 10 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            exit={{ opacity: 0, scale: 0.95, y: 10 }}
+            transition={{ duration: 0.2 }}
+            className="relative w-full max-w-lg bg-surface rounded-3xl shadow-2xl border border-slate-200 overflow-hidden"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div className="flex items-center justify-between p-6 border-b border-slate-100">
+              <h2 id="form-heading" className="heading-section text-lg md:text-xl text-text-main">
+                {t.form.title}
+              </h2>
+              <button
+                type="button"
+                onClick={closeForm}
+                className="p-2 rounded-full text-text-muted hover:text-text-main hover:bg-slate-100 transition-colors"
+                aria-label={locale === 'pt' ? 'Fechar' : 'Close'}
               >
-                {t.form.name}
-              </label>
-              <input
-                id='form-nome'
-                type='text'
-                required
-                value={nome}
-                onChange={(e) => setNome(e.target.value)}
-                placeholder={t.form.namePlaceholder}
-                className='w-full px-4 py-3 rounded-xl border border-slate-200 bg-background text-text-main placeholder:text-text-subtle focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary transition-colors'
-                disabled={isSending}
-                autoComplete='name'
-              />
+                <X size={22} />
+              </button>
             </div>
 
-            <div>
-              <label
-                htmlFor='form-telefone'
-                className='block text-sm font-semibold text-text-main mb-2'
-              >
-                {t.form.phone}
-              </label>
-              <input
-                id='form-telefone'
-                type='tel'
-                required
-                value={telefone}
-                onChange={(e) => setTelefone(e.target.value)}
-                placeholder={t.form.phonePlaceholder}
-                className='w-full px-4 py-3 rounded-xl border border-slate-200 bg-background text-text-main placeholder:text-text-subtle focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary transition-colors'
-                disabled={isSending}
-                autoComplete='tel'
-              />
-            </div>
+            <form onSubmit={handleSubmit} className="p-6 space-y-5">
+              <p className="text-text-muted text-sm">{t.form.subtitle}</p>
 
-            <div>
-              <label
-                htmlFor='form-nivel'
-                className='block text-sm font-semibold text-text-main mb-2'
-              >
-                {t.form.level}
-              </label>
-              <select
-                id='form-nivel'
-                required
-                value={nivel}
-                onChange={(e) => setNivel(e.target.value)}
-                className='w-full px-4 py-3 rounded-xl border border-slate-200 bg-background text-text-main focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary transition-colors appearance-none cursor-pointer disabled:opacity-60'
-                disabled={isSending}
-              >
-                <option value=''>{t.form.levelPlaceholder}</option>
-                {t.form.levels.map((level) => (
-                  <option key={level} value={level}>
-                    {level}
-                  </option>
-                ))}
-              </select>
-            </div>
-          </div>
+              <div>
+                <label
+                  htmlFor="form-nome"
+                  className="block text-sm font-semibold text-text-main mb-2"
+                >
+                  {t.form.name}
+                </label>
+                <input
+                  id="form-nome"
+                  type="text"
+                  required
+                  value={nome}
+                  onChange={(e) => setNome(e.target.value)}
+                  placeholder={t.form.namePlaceholder}
+                  className="w-full px-4 py-3 rounded-xl border border-slate-200 bg-background text-text-main placeholder:text-text-subtle focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary transition-colors"
+                  disabled={isSending}
+                  autoComplete="name"
+                />
+              </div>
 
-          {status === 'success' && (
-            <p className='mt-6 p-4 rounded-xl bg-primary/10 text-primary font-medium text-center'>
-              {t.form.success}
-            </p>
-          )}
+              <div>
+                <label
+                  htmlFor="form-telefone"
+                  className="block text-sm font-semibold text-text-main mb-2"
+                >
+                  {t.form.phone}
+                </label>
+                <input
+                  id="form-telefone"
+                  type="tel"
+                  required
+                  value={telefone}
+                  onChange={(e) => setTelefone(e.target.value)}
+                  placeholder={t.form.phonePlaceholder}
+                  className="w-full px-4 py-3 rounded-xl border border-slate-200 bg-background text-text-main placeholder:text-text-subtle focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary transition-colors"
+                  disabled={isSending}
+                  autoComplete="tel"
+                />
+              </div>
 
-          {status === 'error' && errorMessage && (
-            <p className='mt-6 p-4 rounded-xl bg-red-50 text-red-700 font-medium text-center'>
-              {errorMessage}
-            </p>
-          )}
+              <div>
+                <label
+                  htmlFor="form-email"
+                  className="block text-sm font-semibold text-text-main mb-2"
+                >
+                  {t.form.email}
+                </label>
+                <input
+                  id="form-email"
+                  type="email"
+                  required
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  placeholder={t.form.emailPlaceholder}
+                  className="w-full px-4 py-3 rounded-xl border border-slate-200 bg-background text-text-main placeholder:text-text-subtle focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary transition-colors"
+                  disabled={isSending}
+                  autoComplete="email"
+                />
+              </div>
 
-          <div className='mt-8'>
-            <button
-              type='submit'
-              disabled={isSending}
-              className='btn btn-primary w-full py-4 text-lg disabled:opacity-70 disabled:pointer-events-none'
-            >
-              {isSending ? (
-                <>
-                  <Loader2 size={22} className='animate-spin shrink-0' />
-                  {t.form.sending}
-                </>
-              ) : (
-                t.form.submit
+              {status === 'success' && (
+                <p className="p-4 rounded-xl bg-primary/10 text-primary font-medium text-center text-sm">
+                  {t.form.success}
+                </p>
               )}
-            </button>
-          </div>
-        </motion.form>
-      </div>
-    </section>
+
+              {status === 'error' && errorMessage && (
+                <p className="p-4 rounded-xl bg-red-50 text-red-700 font-medium text-center text-sm">
+                  {errorMessage}
+                </p>
+              )}
+
+              <button
+                type="submit"
+                disabled={isSending}
+                className="btn btn-primary w-full py-4 disabled:opacity-70 disabled:pointer-events-none"
+              >
+                {isSending ? (
+                  <>
+                    <Loader2 size={22} className="animate-spin shrink-0" />
+                    {t.form.sending}
+                  </>
+                ) : (
+                  t.form.submit
+                )}
+              </button>
+            </form>
+          </motion.div>
+        </motion.div>
+      )}
+    </AnimatePresence>
   )
 }
 
-export default StudentForm
+export default StudentFormModal

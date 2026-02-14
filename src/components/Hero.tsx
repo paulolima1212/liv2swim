@@ -1,9 +1,11 @@
 import { motion } from 'framer-motion'
 import { ArrowRight, Droplets } from 'lucide-react'
+import { useFormModal } from '../context/FormModalContext'
 import { useLanguage } from '../i18n/LanguageContext'
 
 const Hero = () => {
   const { t } = useLanguage()
+  const { openForm } = useFormModal()
 
   return (
     <section className='relative min-h-[100vh] flex items-center overflow-hidden bg-background pt-20'>
@@ -36,8 +38,9 @@ const Hero = () => {
           </p>
 
           <div className='flex flex-col sm:flex-row gap-4'>
-            <motion.a
-              href='#cta'
+            <motion.button
+              type='button'
+              onClick={openForm}
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
               className='btn btn-primary text-lg px-8 group'
@@ -47,7 +50,7 @@ const Hero = () => {
                 size={20}
                 className='group-hover:translate-x-0.5 transition-transform'
               />
-            </motion.a>
+            </motion.button>
             <motion.a
               href='#features'
               whileHover={{ scale: 1.02 }}

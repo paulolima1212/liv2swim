@@ -1,4 +1,5 @@
 import { Facebook, Instagram, Mail, MapPin, Phone, Twitter } from 'lucide-react'
+import { useFormModal } from '../context/FormModalContext'
 import { useLanguage } from '../i18n/LanguageContext'
 
 const social = [
@@ -9,6 +10,7 @@ const social = [
 
 const Footer = () => {
   const { t } = useLanguage()
+  const { openForm } = useFormModal()
 
   return (
     <footer className='bg-slate-900 text-slate-300 py-20 relative overflow-hidden'>
@@ -46,12 +48,22 @@ const Footer = () => {
           <ul className='space-y-4'>
             {t.footer.quickLinks.map(({ label, href }) => (
               <li key={label}>
-                <a
-                  href={href}
-                  className='text-slate-400 hover:text-primary transition-colors'
-                >
-                  {label}
-                </a>
+                {href === '#form' ? (
+                  <button
+                    type='button'
+                    onClick={openForm}
+                    className='text-slate-400 hover:text-primary transition-colors text-left'
+                  >
+                    {label}
+                  </button>
+                ) : (
+                  <a
+                    href={href}
+                    className='text-slate-400 hover:text-primary transition-colors'
+                  >
+                    {label}
+                  </a>
+                )}
               </li>
             ))}
           </ul>
@@ -73,11 +85,16 @@ const Footer = () => {
             </li>
             <li className='flex items-start gap-3'>
               <Phone size={18} className='text-primary mt-1 shrink-0' />
-              <span className='text-slate-400'>(11) 99999-9999</span>
+              <a
+                href='tel:+610494631995'
+                className='text-slate-400 hover:text-white transition-colors'
+              >
+                +61 0494 631 995
+              </a>
             </li>
             <li className='flex items-start gap-3'>
               <MapPin size={18} className='text-primary mt-1 shrink-0' />
-              <span className='text-slate-400'>São Paulo, SP</span>
+              <span className='text-slate-400'>Sydney, NSW, Australia</span>
             </li>
           </ul>
         </div>
