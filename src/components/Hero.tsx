@@ -2,6 +2,7 @@ import { motion } from 'framer-motion'
 import { ArrowRight, Droplets } from 'lucide-react'
 import { useFormModal } from '../context/FormModalContext'
 import { useLanguage } from '../i18n/LanguageContext'
+import heroImage from '../assets/foto09.jpg'
 
 const Hero = () => {
   const { t } = useLanguage()
@@ -93,7 +94,7 @@ const Hero = () => {
         >
           <div className='relative aspect-[4/5] max-h-[700px] rounded-[2rem] overflow-hidden shadow-2xl shadow-slate-200/50 ring-1 ring-slate-200/50'>
             <img
-              src='https://images.unsplash.com/photo-1530549387789-4c1017266635?q=80&w=2070&auto=format&fit=crop'
+              src={heroImage}
               alt={t.hero.imageAlt}
               className='absolute inset-0 w-full h-full object-cover'
             />
