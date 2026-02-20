@@ -9,11 +9,11 @@ const Hero = () => {
   const { openForm } = useFormModal()
 
   return (
-    <section className='relative min-h-[100vh] flex items-center overflow-hidden bg-background pt-20 pb-24 lg:pb-28'>
+    <section className='relative min-h-screen flex items-center overflow-hidden bg-background pt-20 pb-24 lg:pb-28'>
       <div className='absolute inset-0 z-0 pointer-events-none'>
-        <div className='absolute top-0 right-0 w-[80vw] max-w-[900px] h-[80vw] max-h-[900px] rounded-full bg-primary/[0.06] blur-3xl' />
-        <div className='absolute bottom-0 left-0 w-[60vw] max-w-[600px] h-[60vw] max-h-[600px] rounded-full bg-secondary/[0.05] blur-3xl' />
-        <div className='absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[400px] h-[400px] rounded-full bg-primary-muted/[0.04] blur-3xl' />
+        <div className='absolute top-0 right-0 w-[80vw] max-w-[900px] h-[80vw] max-h-[900px] rounded-full bg-primary/6 blur-3xl' />
+        <div className='absolute bottom-0 left-0 w-[60vw] max-w-[600px] h-[60vw] max-h-[600px] rounded-full bg-secondary/5 blur-3xl' />
+        <div className='absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[400px] h-[400px] rounded-full bg-primary-muted/4 blur-3xl' />
       </div>
 
       <div className='container relative z-10 grid lg:grid-cols-2 gap-16 lg:gap-20 items-center'>
@@ -92,13 +92,13 @@ const Hero = () => {
           }}
           className='relative order-1 lg:order-2 w-full'
         >
-          <div className='relative aspect-video lg:aspect-[4/5] max-h-[400px] lg:max-h-[700px] rounded-2xl lg:rounded-[2rem] overflow-hidden shadow-2xl shadow-slate-200/50 ring-1 ring-slate-200/50'>
+          <div className='relative aspect-video lg:aspect-4/5 max-h-[400px] lg:max-h-[700px] rounded-2xl lg:rounded-4xl overflow-hidden shadow-2xl shadow-slate-200/50 ring-1 ring-slate-200/50'>
             <img
               src={heroImage}
               alt={t.hero.imageAlt}
               className='absolute inset-0 w-full h-full object-cover'
             />
-            <div className='absolute inset-0 bg-gradient-to-t from-slate-900/50 via-transparent to-transparent' />
+            <div className='absolute inset-0 bg-linear-to-t from-slate-900/50 via-transparent to-transparent' />
           </div>
 
           <motion.div
