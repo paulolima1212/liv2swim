@@ -11,6 +11,8 @@ import foto05 from '../assets/foto05.jpg'
 import foto06 from '../assets/foto06.jpg'
 import foto07 from '../assets/foto07.jpg'
 import foto08 from '../assets/foto08.jpg'
+import foto10 from '../assets/foto10.jpg'
+import foto11 from '../assets/foto11.jpg'
 
 const images = [
   {
@@ -50,6 +52,16 @@ const images = [
   },
   {
     src: foto08,
+    altPt: 'Aulas de natação Liv2swim',
+    altEn: 'Liv2swim swimming lessons',
+  },
+  {
+    src: foto10,
+    altPt: 'Aulas de natação Liv2swim',
+    altEn: 'Liv2swim swimming lessons',
+  },
+  {
+    src: foto11,
     altPt: 'Aulas de natação Liv2swim',
     altEn: 'Liv2swim swimming lessons',
   },

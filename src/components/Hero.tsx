@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion'
 import { ArrowRight, Droplets } from 'lucide-react'
-import heroImage from '../assets/foto09.jpg'
+import heroImage from '../assets/foto10.jpg'
 import { useFormModal } from '../context/FormModalContext'
 import { useLanguage } from '../i18n/LanguageContext'
 
