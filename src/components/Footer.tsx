@@ -13,7 +13,7 @@ const Footer = () => {
   const { openForm } = useFormModal()
 
   return (
-    <footer className='bg-slate-900 text-slate-300 py-20 relative overflow-hidden'>
+    <footer className='bg-secondary text-white/80 py-20 relative overflow-hidden'>
       <div className='absolute top-0 left-1/4 w-[500px] h-[500px] bg-primary/10 rounded-full blur-[120px] pointer-events-none' />
 
       <div className='container relative z-10 grid md:grid-cols-4 gap-14'>
@@ -24,7 +24,7 @@ const Footer = () => {
           >
             Liv<span className='text-primary'>2</span>swim
           </a>
-          <p className='max-w-sm text-slate-400 leading-relaxed mb-8'>
+          <p className='max-w-sm text-white/70 leading-relaxed mb-8'>
             {t.footer.tagline}
           </p>
           <div className='flex gap-3'>
@@ -32,7 +32,7 @@ const Footer = () => {
               <a
                 key={label}
                 href={href}
-                className='w-10 h-10 rounded-full bg-slate-800 flex items-center justify-center text-slate-400 hover:bg-primary hover:text-white transition-all duration-300'
+                className='w-10 h-10 rounded-full bg-white/10 flex items-center justify-center text-white/70 hover:bg-primary hover:text-white transition-all duration-300'
                 aria-label={label}
               >
                 <Icon size={20} />
@@ -52,14 +52,14 @@ const Footer = () => {
                   <button
                     type='button'
                     onClick={openForm}
-                    className='text-slate-400 hover:text-primary transition-colors text-left'
+                    className='text-white/70 hover:text-primary transition-colors text-left'
                   >
                     {label}
                   </button>
                 ) : (
                   <a
                     href={href}
-                    className='text-slate-400 hover:text-primary transition-colors'
+                    className='text-white/70 hover:text-primary transition-colors'
                   >
                     {label}
                   </a>

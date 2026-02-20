@@ -1,26 +1,31 @@
 @import "tailwindcss";
 
 @theme {
-  /* Paleta conceitual: água profunda + confiança */
-  --color-primary: #0d9488;
-  --color-primary-dark: #0f766e;
-  --color-primary-light: #2dd4bf;
-  --color-primary-muted: #5eead4;
+  /* Liv2swim — paleta da marca */
+  /* Primary: AQUA */
+  --color-primary: #5DD1B9;
+  --color-primary-dark: #3F8FA6;
+  --color-primary-light: #AEEBE1;
+  --color-primary-muted: #AEEBE1;
 
-  --color-secondary: #0c4a6e;
-  --color-secondary-light: #0369a1;
-  --color-secondary-muted: #7dd3fc;
+  /* Secondary: Deep Teal + Swim Blue */
+  --color-secondary: #0F3F46;
+  --color-secondary-light: #3F8FA6;
+  --color-secondary-muted: #AEEBE1;
 
-  --color-background: #fafbfc;
-  --color-surface: #ffffff;
-  --color-surface-elevated: #ffffff;
+  /* Surfaces: Clean White */
+  --color-background: #f8fcfb;
+  --color-surface: #FFFFFF;
+  --color-surface-elevated: #FFFFFF;
 
-  --color-text-main: #0f172a;
-  --color-text-muted: #475569;
-  --color-text-subtle: #94a3b8;
+  /* Text: Charcoal */
+  --color-text-main: #1E2A2E;
+  --color-text-muted: #4a5c62;
+  --color-text-subtle: #6b7c82;
 
-  --color-accent: #ea580c;
-  --color-accent-soft: #fed7aa;
+  /* Accent (Swim Blue) */
+  --color-accent: #3F8FA6;
+  --color-accent-soft: #AEEBE1;
 
   --font-sans: "DM Sans", system-ui, sans-serif;
   --font-heading: "Outfit", system-ui, sans-serif;
