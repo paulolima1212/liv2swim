@@ -4,6 +4,7 @@ import { useCallback, useEffect, useState } from 'react'
 import { useLanguage } from '../i18n/LanguageContext'
 
 import foto02 from '../assets/foto02.jpg'
+import foto09 from '../assets/foto09.jpg'
 import foto03 from '../assets/foto03.jpg'
 import foto04 from '../assets/foto04.jpg'
 import foto05 from '../assets/foto05.jpg'
