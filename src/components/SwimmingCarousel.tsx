@@ -3,8 +3,8 @@ import { ChevronLeft, ChevronRight } from 'lucide-react'
 import { useCallback, useEffect, useState } from 'react'
 import { useLanguage } from '../i18n/LanguageContext'
 
+import foto01 from '../assets/foto01.jpg'
 import foto02 from '../assets/foto02.jpg'
-import foto09 from '../assets/foto09.jpg'
 import foto03 from '../assets/foto03.jpg'
 import foto04 from '../assets/foto04.jpg'
 import foto05 from '../assets/foto05.jpg'
@@ -14,7 +14,7 @@ import foto08 from '../assets/foto08.jpg'
 
 const images = [
   {
-    src: foto09,
+    src: foto01,
     altPt: 'Aulas de natação Liv2swim',
     altEn: 'Liv2swim swimming lessons',
   },

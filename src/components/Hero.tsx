@@ -1,15 +1,15 @@
 import { motion } from 'framer-motion'
 import { ArrowRight, Droplets } from 'lucide-react'
+import heroImage from '../assets/foto09.jpg'
 import { useFormModal } from '../context/FormModalContext'
 import { useLanguage } from '../i18n/LanguageContext'
-import heroImage from '../assets/foto09.jpg'
 
 const Hero = () => {
   const { t } = useLanguage()
   const { openForm } = useFormModal()
 
   return (
-    <section className='relative min-h-[100vh] flex items-center overflow-hidden bg-background pt-20'>
+    <section className='relative min-h-[100vh] flex items-center overflow-hidden bg-background pt-20 pb-24 lg:pb-28'>
       <div className='absolute inset-0 z-0 pointer-events-none'>
         <div className='absolute top-0 right-0 w-[80vw] max-w-[900px] h-[80vw] max-h-[900px] rounded-full bg-primary/[0.06] blur-3xl' />
         <div className='absolute bottom-0 left-0 w-[60vw] max-w-[600px] h-[60vw] max-h-[600px] rounded-full bg-secondary/[0.05] blur-3xl' />
@@ -21,7 +21,7 @@ const Hero = () => {
           initial={{ opacity: 0, y: 28 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, ease: [0.25, 0.46, 0.45, 0.94] }}
-          className='max-w-xl'
+          className='max-w-xl order-2 lg:order-1'
         >
           <div className='inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 text-primary font-semibold text-sm mb-8 border border-primary/10'>
             <Droplets size={18} className='shrink-0' />
@@ -90,9 +90,9 @@ const Hero = () => {
             delay: 0.15,
             ease: [0.25, 0.46, 0.45, 0.94],
           }}
-          className='relative hidden lg:block'
+          className='relative order-1 lg:order-2 w-full'
         >
-          <div className='relative aspect-[4/5] max-h-[700px] rounded-[2rem] overflow-hidden shadow-2xl shadow-slate-200/50 ring-1 ring-slate-200/50'>
+          <div className='relative aspect-video lg:aspect-[4/5] max-h-[400px] lg:max-h-[700px] rounded-2xl lg:rounded-[2rem] overflow-hidden shadow-2xl shadow-slate-200/50 ring-1 ring-slate-200/50'>
             <img
               src={heroImage}
               alt={t.hero.imageAlt}
@@ -105,20 +105,20 @@ const Hero = () => {
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.9, duration: 0.5 }}
-            className='absolute -bottom-4 -left-4 right-4 md:right-auto md:w-[320px] z-20 bg-surface/95 backdrop-blur-md p-6 rounded-2xl shadow-xl border border-slate-100'
+            className='absolute left-2 bottom-0 w-[65%] translate-y-[calc(100%-45px)] z-20 bg-surface/95 backdrop-blur-md p-3 sm:p-4 rounded-lg lg:rounded-xl shadow-xl border border-slate-100'
           >
-            <p className='font-heading font-semibold text-lg text-text-main mb-2'>
+            <p className='font-heading font-semibold text-sm sm:text-base text-text-main mb-1.5 leading-snug'>
               "{t.hero.testimonialQuote}"
             </p>
-            <div className='flex items-center gap-3'>
-              <div className='w-10 h-10 rounded-full bg-primary/15 flex items-center justify-center text-primary font-bold text-sm'>
+            <div className='flex items-center gap-2'>
+              <div className='w-8 h-8 rounded-full bg-primary/15 flex items-center justify-center text-primary font-bold text-xs'>
                 SJ
               </div>
               <div>
-                <p className='font-medium text-text-main'>
+                <p className='font-medium text-text-main text-sm'>
                   {t.hero.testimonialName}
                 </p>
-                <p className='text-sm text-text-muted'>
+                <p className='text-xs text-text-muted'>
                   {t.hero.testimonialRole}
                 </p>
               </div>
