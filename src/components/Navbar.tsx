@@ -3,6 +3,7 @@ import { Menu, X } from 'lucide-react'
 import { useEffect, useState } from 'react'
 import { useFormModal } from '../context/FormModalContext'
 import { useLanguage } from '../i18n/LanguageContext'
+import logoImg from '../assets/logo.png'
 
 const navLinkKeys = ['whyUs', 'stories', 'method'] as const
 const hrefByKey = {
@@ -42,9 +43,14 @@ const Navbar = () => {
       <div className='container flex justify-between items-center'>
         <a
           href='#'
-          className='flex items-center gap-0.5 font-heading text-xl font-bold tracking-tight text-text-main hover:text-primary transition-colors'
+          className='flex items-center gap-2 text-text-main hover:opacity-90 transition-opacity'
+          aria-label="Liv2swim"
         >
-          Liv<span className='text-primary'>2</span>swim
+          <img
+            src={logoImg}
+            alt="Liv2swim"
+            className="h-8 w-auto object-contain md:h-9"
+          />
         </a>
 
         <div className='hidden md:flex items-center gap-10'>

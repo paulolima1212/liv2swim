@@ -1,6 +1,7 @@
 import { Facebook, Instagram, Mail, MapPin, Phone, Twitter } from 'lucide-react'
 import { useFormModal } from '../context/FormModalContext'
 import { useLanguage } from '../i18n/LanguageContext'
+import logoImg from '../assets/logo.png'
 
 const social = [
   { Icon: Facebook, href: '#', label: 'Facebook' },
@@ -20,9 +21,14 @@ const Footer = () => {
         <div className='md:col-span-2'>
           <a
             href='#'
-            className='inline-flex items-center font-heading text-2xl font-bold tracking-tight text-white hover:text-primary transition-colors mb-6'
+            className='inline-flex items-center mb-6 text-white hover:opacity-90 transition-opacity'
+            aria-label="Liv2swim"
           >
-            Liv<span className='text-primary'>2</span>swim
+            <img
+              src={logoImg}
+              alt="Liv2swim"
+              className="h-10 w-auto object-contain"
+            />
           </a>
           <p className='max-w-sm text-white/70 leading-relaxed mb-8'>
             {t.footer.tagline}

@@ -3,32 +3,24 @@ import { ChevronLeft, ChevronRight } from 'lucide-react'
 import { useCallback, useEffect, useState } from 'react'
 import { useLanguage } from '../i18n/LanguageContext'
 
+import foto01 from '../assets/foto01.jpg'
+import foto02 from '../assets/foto02.jpg'
+import foto03 from '../assets/foto03.jpg'
+import foto04 from '../assets/foto04.jpg'
+import foto05 from '../assets/foto05.jpg'
+import foto06 from '../assets/foto06.jpg'
+import foto07 from '../assets/foto07.jpg'
+import foto08 from '../assets/foto08.jpg'
+
 const images = [
-  {
-    src: 'https://images.pexels.com/photos/3775140/pexels-photo-3775140.jpeg?auto=compress&w=1200',
-    altPt: 'Nadadora em piscina',
-    altEn: 'Swimmer in pool',
-  },
-  {
-    src: 'https://images.pexels.com/photos/965988/pexels-photo-965988.jpeg?auto=compress&w=1200',
-    altPt: 'Aula na piscina',
-    altEn: 'Swimming pool lesson',
-  },
-  {
-    src: 'https://images.pexels.com/photos/8134750/pexels-photo-8134750.jpeg?auto=compress&w=1200',
-    altPt: 'Piscina',
-    altEn: 'Swimming pool',
-  },
-  {
-    src: 'https://images.pexels.com/photos/1263348/pexels-photo-1263348.jpeg?auto=compress&w=1200',
-    altPt: 'Natação',
-    altEn: 'Swimming',
-  },
-  {
-    src: 'https://images.pexels.com/photos/3792436/pexels-photo-3792436.jpeg?auto=compress&w=1200',
-    altPt: 'Aprendendo a nadar',
-    altEn: 'Learning to swim',
-  },
+  { src: foto01, altPt: 'Aulas de natação Liv2swim', altEn: 'Liv2swim swimming lessons' },
+  { src: foto02, altPt: 'Aulas de natação Liv2swim', altEn: 'Liv2swim swimming lessons' },
+  { src: foto03, altPt: 'Aulas de natação Liv2swim', altEn: 'Liv2swim swimming lessons' },
+  { src: foto04, altPt: 'Aulas de natação Liv2swim', altEn: 'Liv2swim swimming lessons' },
+  { src: foto05, altPt: 'Aulas de natação Liv2swim', altEn: 'Liv2swim swimming lessons' },
+  { src: foto06, altPt: 'Aulas de natação Liv2swim', altEn: 'Liv2swim swimming lessons' },
+  { src: foto07, altPt: 'Aulas de natação Liv2swim', altEn: 'Liv2swim swimming lessons' },
+  { src: foto08, altPt: 'Aulas de natação Liv2swim', altEn: 'Liv2swim swimming lessons' },
 ]
 
 const SwimmingCarousel = () => {
@@ -74,7 +66,7 @@ const SwimmingCarousel = () => {
         </motion.div>
 
         <div className="relative max-w-5xl mx-auto group">
-          <div className="aspect-[16/10] md:aspect-[21/9] rounded-2xl overflow-hidden bg-slate-200 shadow-xl">
+          <div className="aspect-video rounded-2xl overflow-hidden bg-slate-200 shadow-xl isolate">
             <AnimatePresence mode="wait" initial={false}>
               <motion.img
                 key={index}
@@ -84,7 +76,7 @@ const SwimmingCarousel = () => {
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
                 transition={{ duration: 0.5 }}
-                className="absolute inset-0 w-full h-full object-cover"
+                className="absolute inset-0 w-full h-full object-cover rounded-2xl"
               />
             </AnimatePresence>
           </div>
