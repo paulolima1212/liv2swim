@@ -1,12 +1,12 @@
 import { motion } from 'framer-motion'
 import { ArrowRight, Droplets } from 'lucide-react'
 import heroImage from '../assets/foto10.jpg'
-import { useFormModal } from '../context/FormModalContext'
 import { useLanguage } from '../i18n/LanguageContext'
+import { schoolTrialUrl } from '../lib/schoolTrialUrl'
 
 const Hero = () => {
   const { t } = useLanguage()
-  const { openForm } = useFormModal()
+  const trialUrl = schoolTrialUrl()
 
   return (
     <section className='relative min-h-screen flex items-center overflow-hidden bg-background pt-20 pb-24 lg:pb-28'>
@@ -39,9 +39,8 @@ const Hero = () => {
           </p>
 
           <div className='flex flex-col sm:flex-row gap-4'>
-            <motion.button
-              type='button'
-              onClick={openForm}
+            <motion.a
+              href={trialUrl}
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
               className='btn btn-primary text-lg px-8 group'
@@ -51,7 +50,7 @@ const Hero = () => {
                 size={20}
                 className='group-hover:translate-x-0.5 transition-transform'
               />
-            </motion.button>
+            </motion.a>
             <motion.a
               href='#features'
               whileHover={{ scale: 1.02 }}

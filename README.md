@@ -1,16 +1,41 @@
-# React + Vite
+# Liv2swim — landing page
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Site público da escola de natação Liv2swim (Sydney). Apresenta o método e os depoimentos e leva o visitante para a aula teste grátis na [`liv2swim_school`](../liv2swim_school).
 
-Currently, two official plugins are available:
+## Stack
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- Vite 7, React 19, TypeScript
+- Tailwind CSS 4, Framer Motion, Lucide
+- Textos em português e inglês (`src/i18n/translations.ts`)
 
-## React Compiler
+## Como rodar
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+```bash
+cp .env.example .env
+npm install
+npm run dev
+```
 
-## Expanding the ESLint configuration
+O Vite sobe com `--host`. Scripts: `dev`, `build`, `preview`, `lint`.
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## O que a página faz
+
+Página única: navegação, hero, diferenciais, depoimentos, carrossel, chamada para a aula teste e rodapé. O chat Tawk.to está no `index.html`.
+
+O convite da página é a aula teste grátis. Estes pontos usam `VITE_SCHOOL_TRIAL_URL`. Sem a variável, o destino é `https://liv2swim.lz-plima1212.online/`. Com a página rodando neste servidor, o `.env` aponta para `https://liv2swim-tst.lz-plima1212.online/`:
+
+- botão do menu
+- botão principal do hero
+- botão principal da seção final
+- link “Aula teste grátis” no rodapé
+
+O botão “Tirar dúvidas” continua abrindo o chat. Não há formulário nem backend neste repositório.
+
+## Integração com a liv2swim_school
+
+A landing só encaminha para a escola:
+
+- produção: `https://liv2swim.lz-plima1212.online/`
+- teste, quando a landing roda neste servidor: `https://liv2swim-tst.lz-plima1212.online/`
+
+Criar conta e agendar a aula teste acontece nesse endereço. O cadastro de aluno ainda é por convite da equipe ([ADR 010](../liv2swim_school/docs/adr/010-student-invite-access.md)). Agenda e compra de pacotes que já existem (`/my-classes`, `/purchase`) continuam depois do login.

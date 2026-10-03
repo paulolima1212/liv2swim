@@ -1,7 +1,7 @@
 import { Facebook, Instagram, Mail, MapPin, Phone, Twitter } from 'lucide-react'
 import logoImg from '../assets/logo.png'
-import { useFormModal } from '../context/FormModalContext'
 import { useLanguage } from '../i18n/LanguageContext'
+import { schoolTrialUrl } from '../lib/schoolTrialUrl'
 
 const social = [
   { Icon: Facebook, href: '#', label: 'Facebook' },
@@ -15,7 +15,7 @@ const social = [
 
 const Footer = () => {
   const { t } = useLanguage()
-  const { openForm } = useFormModal()
+  const trialUrl = schoolTrialUrl()
 
   return (
     <footer className='bg-secondary text-white/80 py-20 relative overflow-hidden'>
@@ -58,22 +58,12 @@ const Footer = () => {
           <ul className='space-y-4'>
             {t.footer.quickLinks.map(({ label, href }) => (
               <li key={label}>
-                {href === '#form' ? (
-                  <button
-                    type='button'
-                    onClick={openForm}
-                    className='text-white/70 hover:text-primary transition-colors text-left'
-                  >
-                    {label}
-                  </button>
-                ) : (
-                  <a
-                    href={href}
-                    className='text-white/70 hover:text-primary transition-colors'
-                  >
-                    {label}
-                  </a>
-                )}
+                <a
+                  href={href === 'trial' ? trialUrl : href}
+                  className='text-white/70 hover:text-primary transition-colors'
+                >
+                  {label}
+                </a>
               </li>
             ))}
           </ul>

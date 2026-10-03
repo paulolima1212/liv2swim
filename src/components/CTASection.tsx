@@ -1,7 +1,7 @@
 import { motion } from 'framer-motion'
 import { ArrowRight, CheckCircle, HelpCircle } from 'lucide-react'
-import { useFormModal } from '../context/FormModalContext'
 import { useLanguage } from '../i18n/LanguageContext'
+import { schoolTrialUrl } from '../lib/schoolTrialUrl'
 
 function openTawkChat() {
   if (typeof window !== 'undefined' && (window as unknown as { Tawk_API?: { maximize?: () => void } }).Tawk_API?.maximize) {
@@ -11,7 +11,7 @@ function openTawkChat() {
 
 const CTASection = () => {
   const { t } = useLanguage()
-  const { openForm } = useFormModal()
+  const trialUrl = schoolTrialUrl()
 
   return (
     <section id='cta' className='relative py-24 md:py-32 overflow-hidden'>
@@ -46,14 +46,13 @@ const CTASection = () => {
           transition={{ duration: 0.5, delay: 0.2 }}
           className='flex flex-col sm:flex-row justify-center gap-4 mb-16'
         >
-          <button
-            type='button'
-            onClick={openForm}
+          <a
+            href={trialUrl}
             className='btn bg-surface text-secondary hover:bg-slate-50 px-8 py-4 text-lg font-semibold shadow-xl hover:shadow-2xl hover:-translate-y-0.5 transition-all'
           >
             {t.cta.buttonPrimary}
             <ArrowRight className='w-5 h-5' />
-          </button>
+          </a>
           <button
             type='button'
             onClick={openTawkChat}

@@ -1,8 +1,8 @@
 import { AnimatePresence, motion } from 'framer-motion'
 import { Menu, X } from 'lucide-react'
 import { useEffect, useState } from 'react'
-import { useFormModal } from '../context/FormModalContext'
 import { useLanguage } from '../i18n/LanguageContext'
+import { schoolTrialUrl } from '../lib/schoolTrialUrl'
 import logoImg from '../assets/logo.png'
 
 const navLinkKeys = ['whyUs', 'stories', 'method'] as const
@@ -14,7 +14,7 @@ const hrefByKey = {
 
 const Navbar = () => {
   const { locale, setLocale, t } = useLanguage()
-  const { openForm } = useFormModal()
+  const trialUrl = schoolTrialUrl()
   const [scrolled, setScrolled] = useState(false)
   const [isOpen, setIsOpen] = useState(false)
 
@@ -63,13 +63,9 @@ const Navbar = () => {
               {t.nav[key]}
             </a>
           ))}
-          <button
-            type='button'
-            onClick={() => { openForm(); setIsOpen(false) }}
-            className='btn btn-primary text-sm px-5 py-2.5'
-          >
+          <a href={trialUrl} className='btn btn-primary text-sm px-5 py-2.5'>
             {t.nav.bookAssessment}
-          </button>
+          </a>
           <div className='flex items-center border border-slate-200 rounded-full p-1 bg-slate-50/80 ml-2'>
             <button
               type='button'
@@ -154,13 +150,13 @@ const Navbar = () => {
                   {t.nav[key]}
                 </a>
               ))}
-              <button
-                type='button'
+              <a
+                href={trialUrl}
                 className='btn btn-primary w-full mt-6'
-                onClick={() => { openForm(); setIsOpen(false) }}
+                onClick={() => setIsOpen(false)}
               >
                 {t.nav.bookAssessment}
-              </button>
+              </a>
             </div>
           </motion.div>
         )}
