@@ -22,7 +22,7 @@ O Vite sobe com `--host`. Scripts: `dev`, `build`, `preview`, `lint`.
 
 Página única: navegação, hero, diferenciais, depoimentos, carrossel, chamada para a aula teste e rodapé. O chat Tawk.to está no `index.html`.
 
-O convite da página é a aula teste grátis. Estes pontos usam `VITE_SCHOOL_TRIAL_URL`. Sem a variável, o destino é `https://liv2swim.lz-plima1212.online/`. Com a página rodando neste servidor, o `.env` aponta para `https://liv2swim-tst.lz-plima1212.online/`:
+O convite da página é a aula teste grátis. Estes pontos usam `VITE_SCHOOL_TRIAL_URL`. Sem a variável (e no deploy de produção), o destino é `https://liv2swim.lz-plima1212.online/login?signup=1`:
 
 - botão do menu
 - botão principal do hero
@@ -33,9 +33,9 @@ O botão “Tirar dúvidas” continua abrindo o chat. Não há formulário nem 
 
 ## Integração com a liv2swim_school
 
-A landing só encaminha para a escola:
+A landing de produção **sempre** encaminha para a escola em PRD:
 
-- produção: `https://liv2swim.lz-plima1212.online/`
-- teste, quando a landing roda neste servidor: `https://liv2swim-tst.lz-plima1212.online/`
+- produção (default / Vercel): `https://liv2swim.lz-plima1212.online/login?signup=1`
+- override local/TST apenas via `VITE_SCHOOL_TRIAL_URL` no `.env` (não commitado)
 
-Criar conta e agendar a aula teste acontece nesse endereço. O cadastro de aluno ainda é por convite da equipe ([ADR 010](../liv2swim_school/docs/adr/010-student-invite-access.md)). Agenda e compra de pacotes que já existem (`/my-classes`, `/purchase`) continuam depois do login.
+Criar conta e agendar a aula teste acontece nesse endereço. Agenda e compra de pacotes (`/my-classes`, `/purchase`) continuam depois do login.
