@@ -1,5 +1,6 @@
+// Default to TST until PRD cutover; override with VITE_SCHOOL_TRIAL_URL in production.
 const DEFAULT_SCHOOL_TRIAL_URL =
-  'https://liv2swim.lz-plima1212.online/login?signup=1'
+  'https://liv2swim-tst.lz-plima1212.online/login?signup=1'
 
 /** Página da escola onde a pessoa cria a conta e agenda a aula teste grátis. */
 export function schoolTrialUrl(): string {
