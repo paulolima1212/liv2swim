@@ -80,9 +80,17 @@ const SwimmingCarousel = () => {
   }, [])
 
   useEffect(() => {
-    const interval = setInterval(goNext, 5000)
+    const interval = setInterval(goNext, 5500)
     return () => clearInterval(interval)
   }, [goNext])
+
+  // Warm the browser cache so slides don't pop in mid-crossfade.
+  useEffect(() => {
+    images.forEach((img) => {
+      const preload = new Image()
+      preload.src = img.src
+    })
+  }, [])
 
   const getAlt = (img: (typeof images)[0]) =>
     locale === 'pt' ? img.altPt : img.altEn
@@ -110,8 +118,9 @@ const SwimmingCarousel = () => {
         </motion.div>
 
         <div className='relative max-w-5xl mx-auto group'>
-          <div className='aspect-video rounded-2xl overflow-hidden bg-slate-200 shadow-xl isolate'>
-            <AnimatePresence mode='wait' initial={false}>
+          <div className='relative aspect-video rounded-2xl overflow-hidden bg-slate-200 shadow-xl isolate'>
+            {/* Crossfade (not mode="wait") so the next slide rises while the current fades — no blank flash. */}
+            <AnimatePresence initial={false}>
               <motion.img
                 key={index}
                 src={images[index].src}
@@ -119,8 +128,9 @@ const SwimmingCarousel = () => {
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
-                transition={{ duration: 0.5 }}
-                className='absolute inset-0 w-full h-full object-cover rounded-2xl'
+                transition={{ duration: 0.85, ease: [0.22, 1, 0.36, 1] }}
+                className='absolute inset-0 z-0 h-full w-full object-cover'
+                draggable={false}
               />
             </AnimatePresence>
           </div>
