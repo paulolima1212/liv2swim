@@ -1,6 +1,6 @@
-import { AnimatePresence, motion } from 'framer-motion'
+import { motion } from 'framer-motion'
 import { ChevronLeft, ChevronRight } from 'lucide-react'
-import { useCallback, useEffect, useState } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
 import { useLanguage } from '../i18n/LanguageContext'
 
 import foto01 from '../assets/foto01.jpg'
@@ -67,24 +67,56 @@ const images = [
   },
 ]
 
+const FADE_MS = 1000
+const AUTO_MS = 6000
+
 const SwimmingCarousel = () => {
   const { locale } = useLanguage()
-  const [index, setIndex] = useState(0)
+  const [baseIndex, setBaseIndex] = useState(0)
+  const [incomingIndex, setIncomingIndex] = useState<number | null>(null)
+  const [incomingOn, setIncomingOn] = useState(false)
+  const busyRef = useRef(false)
+  const baseIndexRef = useRef(0)
+  const incomingIndexRef = useRef<number | null>(null)
+  const resumeTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null)
+
+  baseIndexRef.current = baseIndex
+  incomingIndexRef.current = incomingIndex
+
+  const getAlt = (img: (typeof images)[0]) =>
+    locale === 'pt' ? img.altPt : img.altEn
+
+  const goTo = useCallback((next: number) => {
+    if (busyRef.current) return
+    const current = baseIndexRef.current
+    const target = ((next % images.length) + images.length) % images.length
+    if (target === current) return
+    busyRef.current = true
+    setIncomingIndex(target)
+    setIncomingOn(false)
+    // Paint the next image at opacity 0, then enable opacity so CSS crossfades over the base.
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => setIncomingOn(true))
+    })
+  }, [])
 
   const goNext = useCallback(() => {
-    setIndex((i) => (i + 1) % images.length)
-  }, [])
+    goTo(baseIndexRef.current + 1)
+  }, [goTo])
 
   const goPrev = useCallback(() => {
-    setIndex((i) => (i - 1 + images.length) % images.length)
+    goTo(baseIndexRef.current - 1)
+  }, [goTo])
+
+  const finishFade = useCallback(() => {
+    const next = incomingIndexRef.current
+    if (next == null) return
+    setBaseIndex(next)
+    setIncomingIndex(null)
+    setIncomingOn(false)
+    busyRef.current = false
   }, [])
 
-  useEffect(() => {
-    const interval = setInterval(goNext, 5500)
-    return () => clearInterval(interval)
-  }, [goNext])
-
-  // Warm the browser cache so slides don't pop in mid-crossfade.
   useEffect(() => {
     images.forEach((img) => {
       const preload = new Image()
@@ -92,13 +124,32 @@ const SwimmingCarousel = () => {
     })
   }, [])
 
-  const getAlt = (img: (typeof images)[0]) =>
-    locale === 'pt' ? img.altPt : img.altEn
+  useEffect(() => {
+    const interval = setInterval(() => {
+      if (busyRef.current) return
+      goTo(baseIndexRef.current + 1)
+    }, AUTO_MS)
+    return () => clearInterval(interval)
+  }, [goTo])
+
+  // Safety: if transitionend is skipped (tab hidden), still settle the layers.
+  useEffect(() => {
+    if (incomingIndex == null || !incomingOn) return
+    if (resumeTimerRef.current) clearTimeout(resumeTimerRef.current)
+    resumeTimerRef.current = setTimeout(finishFade, FADE_MS + 80)
+    return () => {
+      if (resumeTimerRef.current) clearTimeout(resumeTimerRef.current)
+    }
+  }, [incomingIndex, incomingOn, finishFade])
+
+  const base = images[baseIndex]
+  const incoming = incomingIndex != null ? images[incomingIndex] : null
 
   return (
     <section
       className='py-20 md:py-28 bg-slate-50 overflow-hidden'
       aria-label='Imagens de aulas de natação'
+      aria-roledescription='carousel'
     >
       <div className='container relative'>
         <motion.div
@@ -118,21 +169,30 @@ const SwimmingCarousel = () => {
         </motion.div>
 
         <div className='relative max-w-5xl mx-auto group'>
-          <div className='relative aspect-video rounded-2xl overflow-hidden bg-slate-200 shadow-xl isolate'>
-            {/* Crossfade (not mode="wait") so the next slide rises while the current fades — no blank flash. */}
-            <AnimatePresence initial={false}>
-              <motion.img
-                key={index}
-                src={images[index].src}
-                alt={getAlt(images[index])}
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-                transition={{ duration: 0.85, ease: [0.22, 1, 0.36, 1] }}
-                className='absolute inset-0 z-0 h-full w-full object-cover'
+          <div className='relative aspect-video rounded-2xl overflow-hidden bg-slate-900 shadow-xl'>
+            <img
+              src={base.src}
+              alt={getAlt(base)}
+              className='absolute inset-0 h-full w-full object-cover'
+              draggable={false}
+            />
+            {incoming && (
+              <img
+                src={incoming.src}
+                alt={getAlt(incoming)}
+                onTransitionEnd={(e) => {
+                  if (e.propertyName !== 'opacity') return
+                  finishFade()
+                }}
+                className='absolute inset-0 h-full w-full object-cover'
+                style={{
+                  opacity: incomingOn ? 1 : 0,
+                  transition: `opacity ${FADE_MS}ms ease-in-out`,
+                  willChange: 'opacity',
+                }}
                 draggable={false}
               />
-            </AnimatePresence>
+            )}
           </div>
 
           <button
@@ -157,18 +217,18 @@ const SwimmingCarousel = () => {
               <button
                 key={i}
                 type='button'
-                onClick={() => setIndex(i)}
-                className={`w-2.5 h-2.5 rounded-full transition-colors ${
-                  i === index
+                onClick={() => goTo(i)}
+                className={`h-2.5 rounded-full transition-all ${
+                  i === baseIndex
                     ? 'bg-primary w-8'
-                    : 'bg-slate-300 hover:bg-slate-400'
+                    : 'w-2.5 bg-slate-300 hover:bg-slate-400'
                 }`}
                 aria-label={
                   locale === 'pt'
                     ? `Ir para imagem ${i + 1}`
                     : `Go to image ${i + 1}`
                 }
-                aria-current={i === index ? 'true' : undefined}
+                aria-current={i === baseIndex ? 'true' : undefined}
               />
             ))}
           </div>
