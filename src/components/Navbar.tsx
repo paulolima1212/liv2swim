@@ -42,7 +42,7 @@ const Navbar = () => {
     >
       <div className='container flex justify-between items-center'>
         <a
-          href='#'
+          href='/'
           className='flex items-center gap-2 text-text-main hover:opacity-90 transition-opacity'
           aria-label="Liv2swim"
         >

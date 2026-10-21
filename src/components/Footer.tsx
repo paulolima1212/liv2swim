@@ -1,16 +1,14 @@
-import { Facebook, Instagram, Mail, MapPin, Phone, Twitter } from 'lucide-react'
+import { Instagram, Mail, MapPin, Phone } from 'lucide-react'
 import logoImg from '../assets/logo.png'
 import { useLanguage } from '../i18n/LanguageContext'
 import { schoolTrialUrl } from '../lib/schoolTrialUrl'
 
 const social = [
-  { Icon: Facebook, href: '#', label: 'Facebook' },
   {
     Icon: Instagram,
     href: 'https://www.instagram.com/liv2.swim/',
     label: 'Instagram',
   },
-  { Icon: Twitter, href: '#', label: 'Twitter' },
 ]
 
 const Footer = () => {
@@ -24,7 +22,7 @@ const Footer = () => {
       <div className='container relative z-10 grid md:grid-cols-4 gap-14'>
         <div className='md:col-span-2'>
           <a
-            href='#'
+            href='/'
             className='inline-flex items-center mb-6 text-white hover:opacity-90 transition-opacity'
             aria-label='Liv2swim'
           >
@@ -86,10 +84,10 @@ const Footer = () => {
             <li className='flex items-start gap-3'>
               <Phone size={18} className='text-primary mt-1 shrink-0' />
               <a
-                href='tel:+610494631995'
+                href='tel:+61494631995'
                 className='text-slate-400 hover:text-white transition-colors'
               >
-                +61 0494 631 995
+                +61 494 631 995
               </a>
             </li>
             <li className='flex items-start gap-3'>

@@ -53,14 +53,20 @@ const CTASection = () => {
             {t.cta.buttonPrimary}
             <ArrowRight className='w-5 h-5' />
           </a>
-          <button
-            type='button'
-            onClick={openTawkChat}
+          <a
+            href='mailto:hello@liv2swim.com?subject=D%C3%BAvidas%20Liv2Swim'
+            onClick={(e) => {
+              // Prefer live chat when available; mailto is the accessible fallback (BUG-34).
+              if (typeof window !== 'undefined' && (window as unknown as { Tawk_API?: { maximize?: () => void } }).Tawk_API?.maximize) {
+                e.preventDefault()
+                openTawkChat()
+              }
+            }}
             className='btn bg-white/10 border-2 border-white/20 text-white hover:bg-white/20 backdrop-blur-sm px-8 py-4 text-lg'
           >
             <HelpCircle className='w-5 h-5' />
             {t.cta.buttonSecondary}
-          </button>
+          </a>
         </motion.div>
 
         <motion.div

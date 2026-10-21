@@ -101,7 +101,7 @@ export const translations = {
       linksTitle: 'Links',
       contactTitle: 'Contato',
       quickLinks: [
-        { label: 'Início', href: '#' },
+        { label: 'Início', href: '/' },
         { label: 'Por que nós', href: '#features' },
         { label: 'Histórias', href: '#testimonials' },
         { label: 'Aula teste grátis', href: 'trial' },
@@ -209,7 +209,7 @@ export const translations = {
       linksTitle: 'Quick links',
       contactTitle: 'Contact',
       quickLinks: [
-        { label: 'Home', href: '#' },
+        { label: 'Home', href: '/' },
         { label: 'Why Us', href: '#features' },
         { label: 'Stories', href: '#testimonials' },
         { label: 'Free trial lesson', href: 'trial' },
